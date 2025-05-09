@@ -1,0 +1,25 @@
+MATCH (u:User)
+WHERE u.elite_years IS NOT NULL AND size(u.elite_years) > 0
+RETURN u.user_id, u.name, u.review_count_total
+ORDER BY u.review_count_total DESC
+LIMIT 10;
+
+
+MATCH (u:User)
+WHERE u.elite_years IS NULL OR size(u.elite_years) = 0
+RETURN u.user_id, u.name, u.review_count_total
+ORDER BY u.review_count_total DESC
+LIMIT 10;
+
+
+MATCH (u:User)
+WHERE u.elite_years IS NULL OR size(u.elite_years) = 0
+RETURN count(u) AS total_elite_users;
+
+
+MATCH (u:User)
+WHERE u.elite_years IS NOT NULL AND size(u.elite_years) > 0
+RETURN count(u) AS total_elite_users;
+
+MATCH (u:User)
+RETURN count(u) AS total_users;
